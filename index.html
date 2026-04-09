@@ -2091,6 +2091,30 @@ if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_c
 .upsell-footer-icons img {
     height: 30px;
 }
+
+/* Esgotado Modal Specific Styles */
+.esgotado-header {
+    background-color: #ea2222;
+    color: white;
+    padding: 15px;
+    border-radius: 8px 8px 0 0;
+    font-weight: 800;
+    font-size: 18px;
+    margin: -30px -20px 20px -20px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+.esgotado-rules {
+    background-color: #fff8e1;
+    border: 1px dashed #ffa000;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: left;
+    margin-top: 20px;
+    color: #555;
+    line-height: 1.4;
+}
 </style>
 
 <div class="upsell-modal-overlay" id="upsellModalOverlay">
@@ -2131,6 +2155,42 @@ if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_c
     </div>
 </div>
 
+<div class="upsell-modal-overlay" id="esgotadoModalOverlay">
+    <div class="upsell-modal-content">
+        <div class="upsell-modal-close" id="esgotadoModalClose">✕</div>
+        <div class="esgotado-header">Infelizmente a Oferta básica esgotou por hoje!</div>
+        <div class="upsell-modal-title" style="color:#ea2222; font-size: 22px; margin-top: 10px;">DESCONTO LIBERADO!!!</div>
+        <div class="upsell-modal-subtitle">PLANO PREMIUM COMPLETO!</div><br>
+        <div class="upsell-modal-subtitle-2">O Pack Recomendado por Criadores de Conteúdo</div>
+        
+        <div class="upsell-modal-price-old">de <span style="text-decoration: line-through;">R$ 97,00</span> por apenas:</div>
+        <div class="upsell-modal-price-new">R$ 9,90</div>
+        
+        <div class="upsell-modal-list">
+            <p>Pack +15.000 Figurinhas criativas</p>
+            <p>Bônus: Pack +1.000 Figurinhas minimalista</p>
+            <p>Bônus: Pack +500 Figurinhas Premium</p>
+            <p>Bônus: Pack +200 Sombras Sofisticadas</p>
+            <p>Bônus: Pack +50 Molduras Repost</p>
+            <p>Bônus: Paletas de Sucesso</p>
+            <p>Bônus: Stories Lucrativos (Mini curso)</p>
+            <p>Bônus: Facebook e Instagram Ads</p>
+            <p>Acesso Completo a Todos os Bônus</p>
+            <p>7 Dias de Garantia Incondicional</p>
+            <p>Acesso vitalício</p>
+        </div>
+        
+        <a href="https://pay.cakto.com.br/33h6iky_835208" class="upsell-btn-yes">EU ACEITO ESSE DESCONTO!</a>
+        
+        <div class="esgotado-rules">
+            <strong style="color: #ea2222;">REGRAS DA PROMOÇÃO:</strong><br>
+            1. São liberadas 30 unidades por R$ 1,99 por dia como forma de divulgação.<br>
+            2. No momento, as 30 unidades promocionais de hoje já foram vendidas.<br>
+            3. Mas para te compensar, liberamos este super desconto no Pacote Completo enquanto durar o estoque!
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var openBtn = document.getElementById('open-upsell-modal');
@@ -2152,6 +2212,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 modal.classList.remove('active');
             }
         });
+
+        // Esgotado Modal Logic
+        var rejectBtn = modal.querySelector('.upsell-btn-no');
+        var esgotadoModal = document.getElementById('esgotadoModalOverlay');
+        var esgotadoClose = document.getElementById('esgotadoModalClose');
+
+        if(rejectBtn && esgotadoModal) {
+            rejectBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.classList.remove('active');
+                esgotadoModal.classList.add('active');
+            });
+        }
+
+        if(esgotadoClose && esgotadoModal) {
+            esgotadoClose.addEventListener('click', function() {
+                esgotadoModal.classList.remove('active');
+            });
+            esgotadoModal.addEventListener('click', function(e) {
+                if(e.target === esgotadoModal) {
+                    esgotadoModal.classList.remove('active');
+                }
+            });
+        }
     }
 });
 </script>
